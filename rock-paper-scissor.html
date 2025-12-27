@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="th">
+ <head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Rock Paper Scissor</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 100vh;
+ margin: 0;
+ background: #16a085;
+ }
+ .container {
+ text-align: center;
+ background: white;
+ padding: 40px;
+ border-radius: 10px;
+ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+ width: 500px;
+ }
+ h1 {
+ color: #333;
+ }
+ .choices {
+ display: flex;
+ justify-content: space-around;
+ margin: 30px 0;
+ gap: 10px;
+ }
+ button {
+ font-size: 20px;
+ padding: 15px 25px;
+ cursor: pointer;
+ border: none;
+ border-radius: 5px;
+ background: #3498db;
+ color: white;
+ flex: 1;
+ }
+ button:hover {
+ background: #2980b9;
+ }
+ .result {
+ font-size: 18px;
+ margin: 20px 0;
+ padding: 20px;
+ background: #ecf0f1;
+ border-radius: 5px;
+ min-height: 60px;
+ }
+ .choices-display {
+ font-size: 24px;
+ margin: 20px 0;
+ }
+ .score {
+ font-size: 16px;
+ color: #333;
+ }
+ </style>
+ </head>
+ <body>
+ <div class="container">
+ <h1>Rock Paper Scissors</h1>
+ <p>ฉัน - เล่นกับคอมพิวเตอร์</p>
+ <div class="choices">
+ <button onclick="playGame('rock')">������� หิน</button>
+ <button onclick="playGame('paper')">���� กระดาษ</button>
+ <button onclick="playGame('scissors')">���� กรรไกร</button>
+ </div>
+ <div class="choices-display" id="choicesDisplay"></div>
+ <div class="result" id="resultDisplay">
+ เลือก: หิน, กระดาษ, หรือ กรรไกร
+ </div>
+ <div class="score" id="scoreDisplay">คุณ: 0 | คอม: 0</div>
+ </div>
+ <script>
+ let playerScore = 0;
+ let computerScore = 0;
+ function playGame(playerChoice) {
+ const choices = ["rock", "paper", "scissors"];
+ const computerChoice = choices[Math.floor(Math.random() * 3)];
+ const choiceText = {
+ rock: "🪨🪨 หิน",
+ paper: "📄📄 กระดาษ",
+ scissors: "✂ กรรไกร",
+ };
+ document.getElementById(
+ "choicesDisplay"
+ ).textContent = `คุณ: ${choiceText[playerChoice]} | คอม: ${choiceText[computerChoice]}`;
+ let resultData = checkWinner(playerChoice, computerChoice);
+ if (resultData.status === "win") playerScore++;
+ if (resultData.status === "lose") computerScore++;
+ document.getElementById("resultDisplay").textContent =
+ resultData.message;
+ document.getElementById(
+ "scoreDisplay"
+ ).textContent = `คุณ: ${playerScore} | คอม: ${computerScore}`;
+ }
+ function checkWinner(player, computer) {
+ if (player === computer) {
+ return { status: "draw", message: "⚖ เสมอ!" };
+ }
+ if (
+ (player === "rock" && computer === "scissors") ||
+ (player === "paper" && computer === "rock") ||
+ (player === "scissors" && computer === "paper")
+ ) {
+ return { status: "win", message: "🎉🎉 คุณชนะ!" };
+ }
+ return { status: "lose", message: "😢😢 คอมชนะ!" };
+ }
+ </script>
+ </body>
+</html>

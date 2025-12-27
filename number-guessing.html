@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="th">
+ <head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Number Guessing Game - เกมส์ทายตัวเลข</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 100vh;
+ margin: 0;
+ background: #e8f4f8;
+ }
+ .container {
+ text-align: center;
+ background: white;
+ padding: 40px;
+ border-radius: 10px;
+ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+ width: 400px;
+ }
+ h1 {
+ color: #333;
+ }
+ .info {
+ background: #f0f0f0;
+ padding: 15px;
+ border-radius: 5px;
+ margin: 20px 0;
+ font-size: 14px;
+ color: #555;
+ }
+ input {
+ width: 100%;
+ padding: 12px;
+ font-size: 16px;
+ border: 2px solid #bbb;
+ border-radius: 5px;
+ box-sizing: border-box;
+ margin-bottom: 10px;
+ }
+ button {
+ width: 100%;
+ padding: 12px;
+ font-size: 18px;
+ background: #3498db;
+ color: white;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ }
+ button:hover {
+ background: #2980b9;
+ }
+ .result {
+ margin-top: 20px;
+ padding: 15px;
+ background: #ecf0f1;
+ border-radius: 5px;
+ min-height: 40px;
+ font-size: 18px;
+ font-weight: bold;
+ color: #333;
+ }
+ .result.correct {
+ background: #2ecc71;
+ color: white;
+ }
+ .result.too-high {
+ background: #e74c3c;
+ color: white;
+ }
+ .result.too-low {
+ background: #f39c12;
+ color: white;
+ }
+ .stats {
+ margin-top: 20px;
+ font-size: 14px;
+ color: #666;
+ }
+ .reset-btn {
+ background: #95a5a6;
+ margin-top: 10px;
+ }
+ .reset-btn:hover {
+ background: #7f8c8d;
+ }
+ </style>
+ </head>
+ <body>
+ <div class="container">
+ <h1>����������� Number Guessing Game</h1>
+ <p>เกมส์ทายตัวเลข</p>
+ <div class="info">
+ <p>ทายตัวเลขตั้งแต่ <strong>1 ถึง 100</strong></p>
+ <p>โปรแกรมจะบอกว่า ตัวเลขลับ สูงกว่าหรือตํ่ากว่า</p>
+ </div>
+ <input
+ type="number"
+ id="txt"
+ placeholder="พิมพ์ตัวเลข 1-100"
+ min="1"
+ max="100"
+ />
+ <button onclick="checkGuess()">������ ทาย</button>
+ <div class="result" id="result">
+ เริ่มเล่นเลย! พิมพ์ตัวเลขแล้วกดปุ่ม ทาย
+ </div>
+ <div class="stats">
+ <p>จํานวนครั้งที่ทาย: <strong id="attempts">0</strong></p>
+ </div>
+ <button class="reset-btn" onclick="resetGame()">��� เล่นใหม่</button>
+ </div>
+ <script>
+ let ans = Math.floor(Math.random() * 50) + 1;
+ let attempts = 0;
+ function checkGuess() {
+ let g = parseInt(document.getElementById("txt").value);
+ let result = document.getElementById("result");
+ if (isNaN(g) || g < 1 || g > 50) {
+ result.textContent = "❌ กรุณาป้อนตัวเลข 1-50";
+ result.className = "result";
+ return;
+ }
+ attempts++;
+ document.getElementById("attempts").textContent = attempts;
+ if (g === ans) {
+ result.textContent = `✅ ถูกต้อง! ตัวเลขคือ ${ans} ทาย ${attempts} ครั้ง`;
+ result.className = "result correct";
+ document.getElementById("txt").disabled = true;
+ } else if (g > ans) {
+ result.textContent = "📉📉 ตัวเลขสูงไป ลองตัวเลขที่น้อยกว่า";
+ result.className = "result too-high";
+ } else {
+ result.textContent = "📈📈 ตัวเลขตํ่าไป ลองตัวเลขที่มากกว่า";
+ result.className = "result too-low";
+ }
+ }
+ function resetGame() {
+ ans = Math.floor(Math.random() * 100) + 1;
+ attempts = 0;
+ document.getElementById("attempts").textContent = "0";
+ document.getElementById("txt").value = "";
+ document.getElementById("txt").disabled = false;
+ const result = document.getElementById("result");
+ result.textContent = "เริ่มเล่นเลย! พิมพ์ตัวเลขแล้วกดปุ่ม ทาย";
+ result.className = "result";
+ document.getElementById("txt").focus();
+ }
+ document
+ .getElementById("txt")
+ .addEventListener("keypress", function (event) {
+ if (event.key === "Enter") {
+ checkGuess();
+ }
+ });
+ </script>
+ </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="th">
+ <head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Counter - ตัวนับ</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 100vh;
+ margin: 0;
+ background: #f0f0f0;
+ }
+ .container {
+ text-align: center;
+ background: white;
+ padding: 40px;
+ border-radius: 10px;
+ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ }
+ h1 {
+ color: #333;
+ }
+ .counter-display {
+ font-size: 48px;
+ font-weight: bold;
+ color: #007bff;
+ margin: 20px 0;
+ }
+ button {
+ font-size: 18px;
+ padding: 10px 20px;
+ margin: 0 10px;
+ cursor: pointer;
+ border: none;
+ border-radius: 5px;
+ background: #007bff;
+ color: white;
+ }
+ button:hover {
+ background: #0056b3;
+ }
+ </style>
+ </head>
+ <body>
+ <div class="container">
+ <h1>Counter (ตัวนับ)</h1>
+ <div class="counter-display" id="display">0</div>
+ <button onclick="decrease()">- ลด</button>
+ <button onclick="increase()">+ เพิ่ม</button>
+ </div>
+ <script>
+ // ตัวแปรเก็บค่าตัวนับ
+ let count = 0;
+ // ฟังก์ชันเพิ่มค่า
+ function increase() {
+ count = count + 5;
+ updateDisplay();
+ }
+ // ฟังก์ชันลดค่า
+ function decrease() {
+ count = count - 5
+ updateDisplay();
+ }
+ // ฟังก์ชันอัปเดตการแสดงผลบนหน้าจอ
+ function updateDisplay() {
+ document.getElementById("display").textContent = count;
+ }
+ </script>
+ </body>
+</html>
